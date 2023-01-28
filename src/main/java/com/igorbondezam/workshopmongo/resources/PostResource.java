@@ -3,6 +3,7 @@ package com.igorbondezam.workshopmongo.resources;
 import com.igorbondezam.workshopmongo.domain.Post;
 import com.igorbondezam.workshopmongo.domain.User;
 import com.igorbondezam.workshopmongo.dto.UserDTO;
+import com.igorbondezam.workshopmongo.resources.util.URL;
 import com.igorbondezam.workshopmongo.service.PostService;
 import com.igorbondezam.workshopmongo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,15 @@ public class PostResource {
 
     }
 
+    @RequestMapping(value = "/titlesearch", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
 
+        text = URL.decodeParam(text);
+
+        List<Post> list = service.findyByTitle(text);
+
+        return ResponseEntity.ok().body(list);
+
+    }
 
 }
